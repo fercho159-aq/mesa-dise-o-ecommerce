@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda — RAÍZ</title>
+  <meta name="description" content="Toda la colección de mesas RAÍZ. Comedores, escritorios, mesas de centro y laterales." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <section class="section-sm" style="padding-top: 2.5rem;">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Colección</span>
+        <h1 style="font-size: clamp(2rem, 5vw, 2.8rem);">Todas las mesas</h1>
+        <p>10 piezas únicas. Cada una hecha al pedido por nuestros artesanos.</p>
+      </div>
+
+      <div class="filters" id="filters"></div>
+
+      <div class="products" id="grid" style="margin-top: 1.5rem;"></div>
+
+      <p id="empty-msg" class="center muted" style="display:none; padding: 3rem 0;">No hay mesas en esta categoría.</p>
+    </div>
+  </section>
+
+  <div id="footer-slot"></div>
+  <div id="fab-slot"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    mountLayout('tienda');
+
+    const params = new URLSearchParams(location.search);
+    let activeCat = params.get('cat') || 'Todas';
+
+    const filtersEl = document.getElementById('filters');
+    const gridEl = document.getElementById('grid');
+    const emptyEl = document.getElementById('empty-msg');
+
+    function renderFilters() {
+      filtersEl.innerHTML = CATEGORIES.map(c =>
+        `<button class="filter-chip ${c === activeCat ? 'active' : ''}" data-cat="${c}">${c}</button>`
+      ).join('');
+    }
+
+    function renderGrid() {
+      const list = activeCat === 'Todas'
+        ? PRODUCTS
+        : PRODUCTS.filter(p => p.category === activeCat);
+
+      emptyEl.style.display = list.length ? 'none' : 'block';
+
+      gridEl.innerHTML = list.map(p => `
+        <article class="product-card">
+          <a href="producto.html?id=${p.id}" class="img">
+            ${p.tag ? `<span class="tag">${p.tag}</span>` : ''}
+            <img src="${p.images[0]}" alt="${p.name}" loading="lazy" />
+          </a>
+          <div class="body">
+            <span class="cat">${p.category}</span>
+            <h3>${p.name}</h3>
+            <p class="muted" style="font-size: 0.9rem;">${p.short}</p>
+            <div class="price">${fmtMXN(p.price)}</div>
+            <div class="actions">
+              <a href="producto.html?id=${p.id}" class="btn btn-ghost">Ver</a>
+              <button class="btn btn-primary" data-add="${p.id}">Agregar</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    filtersEl.addEventListener('click', (e) => {
+      const cat = e.target.dataset.cat;
+      if (!cat) return;
+      activeCat = cat;
+      const url = new URL(location.href);
+      if (cat === 'Todas') url.searchParams.delete('cat');
+      else url.searchParams.set('cat', cat);
+      history.replaceState({}, '', url);
+      renderFilters();
+      renderGrid();
+    });
+
+    gridEl.addEventListener('click', (e) => {
+      const id = e.target.dataset.add;
+      if (!id) return;
+      Cart.add(id, 1);
+      showToast(`✓ ${getProduct(id).name} agregada al carrito`);
+    });
+
+    renderFilters();
+    renderGrid();
+  </script>
+</body>
+</html>

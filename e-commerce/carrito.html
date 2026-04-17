@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrito — RAÍZ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <section class="section-sm" style="padding-top: 2.5rem;">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Tu selección</span>
+        <h1 style="font-size: clamp(2rem, 5vw, 2.8rem);">Carrito</h1>
+      </div>
+
+      <div id="cart-root"></div>
+    </div>
+  </section>
+
+  <!-- Modal de confirmación de compra -->
+  <div class="modal-bg" id="modal">
+    <div class="modal">
+      <div class="check">✓</div>
+      <h3>¡Pedido recibido!</h3>
+      <p>Te enviamos un correo con la confirmación. Nuestro equipo te contactará en las próximas 24h para coordinar producción y envío.</p>
+      <button class="btn btn-primary btn-block" id="modal-close">Seguir explorando</button>
+    </div>
+  </div>
+
+  <div id="footer-slot"></div>
+  <div id="fab-slot"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    mountLayout('');
+
+    const root = document.getElementById('cart-root');
+    const modal = document.getElementById('modal');
+
+    function render() {
+      const items = Cart.items();
+
+      if (items.length === 0) {
+        root.innerHTML = `
+          <div class="empty">
+            <h3>Tu carrito está vacío</h3>
+            <p>Aún no has agregado mesas. Explora la colección y encuentra tu favorita.</p>
+            <a href="tienda.html" class="btn btn-primary" style="margin-top: 1.5rem;">Ver la colección</a>
+          </div>
+        `;
+        return;
+      }
+
+      const subtotal = Cart.subtotal();
+      const envio = subtotal > 20000 ? 0 : 1500;
+      const total = subtotal + envio;
+
+      root.innerHTML = `
+        <div class="cart-layout">
+          <div class="cart-items">
+            ${items.map(it => `
+              <div class="cart-item">
+                <img src="${it.images[0]}" alt="${it.name}" />
+                <div>
+                  <h4>${it.name}</h4>
+                  <p class="muted" style="font-size: 0.85rem;">${it.category} · ${it.measures}</p>
+                  <div class="row">
+                    <div class="qty">
+                      <button data-minus="${it.id}">−</button>
+                      <span>${it.qty}</span>
+                      <button data-plus="${it.id}">+</button>
+                    </div>
+                    <div class="price-line">${fmtMXN(it.price * it.qty)}</div>
+                  </div>
+                  <div style="margin-top: 0.5rem;">
+                    <button class="remove" data-remove="${it.id}">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <aside class="summary">
+            <h3>Resumen</h3>
+            <div class="line"><span>Subtotal</span><span>${fmtMXN(subtotal)}</span></div>
+            <div class="line">
+              <span>Envío</span>
+              <span>${envio === 0 ? '<strong style="color: var(--success)">Gratis</strong>' : fmtMXN(envio)}</span>
+            </div>
+            ${envio > 0 ? `<p class="muted" style="font-size: 0.8rem;">Envío gratis en pedidos mayores a $20,000 MXN.</p>` : ''}
+            <div class="total"><span>Total</span><span>${fmtMXN(total)}</span></div>
+            <button class="btn btn-primary btn-block btn-lg" id="checkout">Finalizar compra</button>
+            <a href="tienda.html" class="btn btn-ghost btn-block" style="margin-top: 0.75rem;">Seguir comprando</a>
+            <p class="muted" style="font-size: 0.8rem; margin-top: 1rem; text-align: center;">
+              Pago seguro · Aceptamos tarjeta y transferencia
+            </p>
+          </aside>
+        </div>
+      `;
+
+      // Wire events
+      root.querySelectorAll('[data-plus]').forEach(b =>
+        b.onclick = () => { Cart.setQty(b.dataset.plus, Cart.all()[b.dataset.plus] + 1); render(); }
+      );
+      root.querySelectorAll('[data-minus]').forEach(b =>
+        b.onclick = () => { Cart.setQty(b.dataset.minus, Cart.all()[b.dataset.minus] - 1); render(); }
+      );
+      root.querySelectorAll('[data-remove]').forEach(b =>
+        b.onclick = () => { Cart.remove(b.dataset.remove); render(); }
+      );
+
+      document.getElementById('checkout').onclick = () => {
+        modal.classList.add('show');
+        Cart.clear();
+      };
+    }
+
+    document.getElementById('modal-close').onclick = () => {
+      modal.classList.remove('show');
+      render();
+    };
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('show');
+        render();
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>

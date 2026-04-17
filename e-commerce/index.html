@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAÍZ — Mesas de autor hechas en México</title>
+  <meta name="description" content="Mesas de diseño hechas a mano. Comedores, escritorios, mesas a medida. Envíos a toda la república." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80' font-family='serif'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <span class="eyebrow">Mesas hechas a mano · México</span>
+      <h1>Diseño que vive con la materia.</h1>
+      <p>Mesas de autor en madera maciza, barro, cobre y piedra. Cada pieza es única, hecha por artesanos en talleres nuestros y aliados.</p>
+      <div class="hero-cta">
+        <a href="tienda.html" class="btn btn-primary btn-lg">Ver colección</a>
+        <a href="personalizadas.html" class="btn btn-ghost btn-lg">Hacer una a mi medida</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strip -->
+  <div class="strip">
+    <div class="strip-track">
+      <span class="strip-item">Envío a toda la república</span>
+      <span class="strip-item">Hecho a mano en México</span>
+      <span class="strip-item">Garantía de 5 años</span>
+      <span class="strip-item">Pieza única, sin repeticiones</span>
+      <span class="strip-item">Envío a toda la república</span>
+      <span class="strip-item">Hecho a mano en México</span>
+      <span class="strip-item">Garantía de 5 años</span>
+      <span class="strip-item">Pieza única, sin repeticiones</span>
+    </div>
+  </div>
+
+  <!-- Categorías -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Por estilo</span>
+        <h2>Encuentra tu mesa</h2>
+        <p>Desde el comedor donde se sirven los domingos hasta la lateral que sostiene tu lámpara favorita.</p>
+      </div>
+      <div class="cats reveal">
+        <a class="cat-card" href="tienda.html?cat=Comedor">
+          <img src="https://images.unsplash.com/photo-1604061986761-d9d0cc41b0d1?w=600&q=80" alt="Comedor" loading="lazy" />
+          <span>Comedor</span>
+        </a>
+        <a class="cat-card" href="tienda.html?cat=Escritorio">
+          <img src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=600&q=80" alt="Escritorio" loading="lazy" />
+          <span>Escritorio</span>
+        </a>
+        <a class="cat-card" href="tienda.html?cat=Centro">
+          <img src="https://images.unsplash.com/photo-1554295405-abb8fd54f153?w=600&q=80" alt="Centro" loading="lazy" />
+          <span>Centro</span>
+        </a>
+        <a class="cat-card" href="tienda.html?cat=Lateral">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Lateral" loading="lazy" />
+          <span>Lateral</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Destacados -->
+  <section class="section" style="background: var(--bg-light);">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Destacados</span>
+        <h2>Las más buscadas</h2>
+        <p>Cuatro piezas que se han vuelto favoritas. Producción limitada, cada una hecha al pedido.</p>
+      </div>
+      <div class="products reveal" id="featured-grid"></div>
+      <div class="center" style="margin-top: 2.5rem;">
+        <a href="tienda.html" class="btn btn-ghost">Ver toda la colección →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="section">
+    <div class="container">
+      <div class="story reveal">
+        <img src="https://images.unsplash.com/photo-1611117775350-ac3950990985?w=900&q=80" alt="Taller" loading="lazy" />
+        <div>
+          <span class="eyebrow">Nuestra historia</span>
+          <h2>Tres generaciones tallando madera.</h2>
+          <p>RAÍZ nació en el taller que mi abuelo abrió en Coyoacán hace cincuenta años. Hoy, con un equipo de doce personas y aliados artesanos en Michoacán, Oaxaca y Puebla, hacemos mesas pensadas para durar.</p>
+          <p>No producimos en serie. Cada pieza es hecha al pedido, con maderas locales y técnicas que respetan el oficio.</p>
+          <a href="nosotros.html" class="btn btn-ghost" style="margin-top: 1.5rem;">Conocer la marca</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A medida CTA -->
+  <section class="section custom-hero" style="margin: 0; padding: 4rem 0;">
+    <div class="container reveal">
+      <span class="eyebrow" style="color: var(--bg-dark);">A medida</span>
+      <h2 style="color: var(--bg-light); margin-top: 0.5rem;">¿No encuentras la mesa exacta?</h2>
+      <p>La hacemos a tu medida. Mándanos las dimensiones, el material y el estilo, y te enviamos boceto y cotización en menos de 48h.</p>
+      <div style="display: flex; gap: 0.75rem; margin-top: 2rem; flex-wrap: wrap;">
+        <a href="personalizadas.html" class="btn btn-secondary btn-lg">Solicitar diseño</a>
+        <a id="wa-custom" href="#" class="btn btn-wa btn-lg" target="_blank" rel="noopener">
+          Hablar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-slot"></div>
+  <div id="fab-slot"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    mountLayout('inicio');
+    initReveal();
+
+    // WhatsApp link
+    document.getElementById('wa-custom').href = waLink('Hola RAÍZ, me interesa una mesa a medida');
+
+    // Featured products
+    const featured = ['otavalo', 'sol', 'maguey', 'cobre'];
+    const grid = document.getElementById('featured-grid');
+    grid.innerHTML = featured.map(id => {
+      const p = getProduct(id);
+      return `
+        <article class="product-card">
+          <a href="producto.html?id=${p.id}" class="img">
+            ${p.tag ? `<span class="tag">${p.tag}</span>` : ''}
+            <img src="${p.images[0]}" alt="${p.name}" loading="lazy" />
+          </a>
+          <div class="body">
+            <span class="cat">${p.category}</span>
+            <h3>${p.name}</h3>
+            <p class="muted" style="font-size: 0.9rem;">${p.short}</p>
+            <div class="price">${fmtMXN(p.price)}</div>
+            <div class="actions">
+              <a href="producto.html?id=${p.id}" class="btn btn-ghost">Ver</a>
+              <button class="btn btn-primary" data-add="${p.id}">Agregar</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    grid.addEventListener('click', (e) => {
+      const id = e.target.dataset.add;
+      if (!id) return;
+      Cart.add(id, 1);
+      showToast(`✓ ${getProduct(id).name} agregada al carrito`);
+    });
+  </script>
+</body>
+</html>

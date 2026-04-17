@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto — RAÍZ</title>
+  <meta name="description" content="Escríbenos por WhatsApp, correo o visita el taller en Coyoacán." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Hablemos</span>
+        <h1 style="font-size: clamp(2rem, 5vw, 2.8rem);">Contacto</h1>
+        <p>Estamos al otro lado del mensaje. Te contestamos en menos de 24h.</p>
+      </div>
+
+      <div class="contact-grid">
+
+        <div class="contact-info">
+          <div class="contact-card">
+            <div class="icon">💬</div>
+            <div>
+              <h4>WhatsApp</h4>
+              <p>Lo más rápido. Respondemos casi al instante.</p>
+              <a id="wa-direct" href="#" target="_blank" rel="noopener" style="font-weight: 600; color: var(--accent);">+52 55 1234 5678 →</a>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="icon">✉</div>
+            <div>
+              <h4>Correo</h4>
+              <p>Para cotizaciones detalladas y proyectos comerciales.</p>
+              <a href="mailto:hola@raiz-mesas.mx" style="font-weight: 600; color: var(--accent);">hola@raiz-mesas.mx</a>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="icon">📍</div>
+            <div>
+              <h4>Taller</h4>
+              <p>Coyoacán 142, Ciudad de México.</p>
+              <p style="font-size: 0.85rem; margin-top: 0.5rem;">Lunes a sábado · 10:00 a 18:00</p>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="icon">✦</div>
+            <div>
+              <h4>Síguenos</h4>
+              <p>Instagram: <a href="#" style="color: var(--secondary); font-weight: 600;">@raiz.mesas</a></p>
+              <p>Facebook: <a href="#" style="color: var(--secondary); font-weight: 600;">RAÍZ Mesas</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="background: var(--bg-light); padding: 2rem 1.75rem; border-radius: var(--radius-md);">
+            <h3 style="margin-bottom: 0.5rem;">Mándanos un mensaje</h3>
+            <p class="muted" style="margin-bottom: 1.5rem; font-size: 0.95rem;">Te respondemos por correo en menos de 24h.</p>
+
+            <form id="contact-form">
+              <div class="row-2">
+                <div class="field">
+                  <label for="nombre">Nombre</label>
+                  <input id="nombre" type="text" required />
+                </div>
+                <div class="field">
+                  <label for="tel">Teléfono</label>
+                  <input id="tel" type="tel" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="email">Correo</label>
+                <input id="email" type="email" required />
+              </div>
+              <div class="field">
+                <label for="asunto">Asunto</label>
+                <select id="asunto" required>
+                  <option value="">Selecciona...</option>
+                  <option>Compra de una mesa</option>
+                  <option>Mesa a medida</option>
+                  <option>Visita al taller</option>
+                  <option>Proyecto comercial / hotelería</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block btn-lg">Enviar mensaje</button>
+            </form>
+
+            <div id="success" style="display:none; text-align:center; padding: 2rem 0;">
+              <div style="width: 64px; height: 64px; margin: 0 auto 1rem; border-radius: 50%; background: var(--success); display: grid; place-items: center; color: white; font-size: 2rem;">✓</div>
+              <h3>¡Mensaje enviado!</h3>
+              <p class="muted" style="margin-top: 0.5rem;">Te respondemos en menos de 24h.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-slot"></div>
+  <div id="fab-slot"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    mountLayout('contacto');
+
+    document.getElementById('wa-direct').href = waLink('Hola RAÍZ, vengo del sitio web');
+
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.target.style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

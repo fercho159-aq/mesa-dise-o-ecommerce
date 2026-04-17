@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosotros — RAÍZ</title>
+  <meta name="description" content="Tres generaciones de carpinteros haciendo mesas en México." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <section class="section">
+    <div class="container">
+      <div class="story reveal">
+        <img src="https://images.unsplash.com/photo-1611117775350-ac3950990985?w=900&q=80" alt="Taller RAÍZ" loading="lazy" />
+        <div>
+          <span class="eyebrow">Sobre nosotros</span>
+          <h1 style="font-size: clamp(2rem, 5vw, 2.8rem); margin-top: 0.75rem;">Tres generaciones tallando madera.</h1>
+          <p style="margin-top: 1rem;">RAÍZ nació en 1974, en un taller pequeño en Coyoacán. Mi abuelo lo abrió con un torno, dos cepillos y la convicción de que una mesa bien hecha sobrevive a varias generaciones.</p>
+          <p>Hoy, cinco décadas después, seguimos en el mismo barrio, con un equipo de doce personas y aliados artesanos en Michoacán, Oaxaca y Puebla. Hacemos mesas pensadas para durar, con maderas de origen responsable y técnicas que respetan el oficio.</p>
+          <p>No producimos en serie. Cada pieza nace de un pedido, se firma a mano y lleva un certificado de autenticidad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--bg-light);">
+    <div class="container">
+      <div class="section-head reveal center">
+        <span class="eyebrow">Lo que nos mueve</span>
+        <h2>Nuestros principios</h2>
+      </div>
+      <div class="values reveal">
+        <div class="value">
+          <div class="icon">✦</div>
+          <h4>Hecho a mano</h4>
+          <p>Cada mesa pasa por las manos de un solo carpintero, de principio a fin. Sin líneas de producción.</p>
+        </div>
+        <div class="value">
+          <div class="icon">✦</div>
+          <h4>Materia local</h4>
+          <p>Maderas mexicanas, barro de Oaxaca, cobre de Santa Clara. Compramos directo a los productores.</p>
+        </div>
+        <div class="value">
+          <div class="icon">✦</div>
+          <h4>Para durar</h4>
+          <p>Garantía de 5 años, pero pensadas para 50. Si una mesa se daña, la reparamos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container reveal" style="text-align: center;">
+      <span class="eyebrow">El taller</span>
+      <h2 style="margin: 0.5rem 0 1rem;">Visítanos</h2>
+      <p class="muted" style="max-width: 50ch; margin: 0 auto 2rem;">Estamos abiertos al público de lunes a sábado. Si quieres ver el proceso o probar las mesas en persona, agenda una visita.</p>
+      <div style="display: grid; gap: 0.75rem; grid-template-columns: 1fr; max-width: 400px; margin: 0 auto;">
+        <a href="contacto.html" class="btn btn-primary btn-lg">Agendar visita</a>
+        <a href="tienda.html" class="btn btn-ghost btn-lg">Ver la colección</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-slot"></div>
+  <div id="fab-slot"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    mountLayout('nosotros');
+    initReveal();
+  </script>
+</body>
+</html>

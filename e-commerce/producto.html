@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Producto — RAÍZ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <main class="product-page">
+    <div class="container">
+      <p style="font-size: 0.85rem; margin-bottom: 1rem;">
+        <a href="tienda.html" style="color: var(--muted);">← Volver a la tienda</a>
+      </p>
+
+      <div id="product-root"></div>
+
+      <section style="margin-top: 5rem;">
+        <div class="section-head">
+          <span class="eyebrow">También te puede gustar</span>
+          <h2 style="font-size: 1.8rem;">Otras piezas</h2>
+        </div>
+        <div class="products" id="related"></div>
+      </section>
+    </div>
+  </main>
+
+  <div id="footer-slot"></div>
+  <div id="fab-slot"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    mountLayout('tienda');
+
+    const id = new URLSearchParams(location.search).get('id');
+    const p = getProduct(id);
+    const root = document.getElementById('product-root');
+
+    if (!p) {
+      root.innerHTML = `
+        <div class="empty">
+          <h3>Producto no encontrado</h3>
+          <p>Esta mesa ya no está disponible o el enlace es incorrecto.</p>
+          <a href="tienda.html" class="btn btn-primary" style="margin-top: 1.5rem;">Ver toda la colección</a>
+        </div>
+      `;
+    } else {
+      document.title = `${p.name} — RAÍZ`;
+      let qty = 1;
+      let activeImg = 0;
+
+      function render() {
+        root.innerHTML = `
+          <div class="product-grid">
+            <div class="gallery">
+              <div class="main">
+                <img src="${p.images[activeImg]}" alt="${p.name}" />
+              </div>
+              <div class="thumbs">
+                ${p.images.map((src, i) => `
+                  <button class="${i === activeImg ? 'active' : ''}" data-i="${i}">
+                    <img src="${src}" alt="" loading="lazy" />
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="product-info">
+              <span class="cat">${p.category}${p.tag ? ' · ' + p.tag : ''}</span>
+              <h1>${p.name}</h1>
+              <div class="price-detail">${fmtMXN(p.price)}</div>
+              <p class="desc">${p.description}</p>
+
+              <div class="specs">
+                <dl>
+                  <dt>Medidas</dt><dd>${p.measures}</dd>
+                  <dt>Materiales</dt><dd>${p.materials}</dd>
+                  <dt>Peso</dt><dd>${p.weight}</dd>
+                  <dt>Entrega</dt><dd>${p.delivery}</dd>
+                </dl>
+              </div>
+
+              <label style="font-size: 0.85rem; font-weight: 600; color: var(--accent);">Cantidad</label>
+              <div class="qty">
+                <button id="q-minus">−</button>
+                <span id="q-val">${qty}</span>
+                <button id="q-plus">+</button>
+              </div>
+
+              <div class="add-bar">
+                <button class="btn btn-primary btn-lg" id="add-btn">Agregar al carrito</button>
+                <a href="${waLink('Hola RAÍZ, me interesa la ' + p.name + ' (' + fmtMXN(p.price) + ')')}" target="_blank" rel="noopener" class="btn btn-wa btn-lg">
+                  WhatsApp
+                </a>
+              </div>
+
+              <p class="muted" style="font-size: 0.85rem; margin-top: 1.25rem;">
+                ✦ Envío a toda la república · Pago seguro · Garantía de 5 años
+              </p>
+            </div>
+          </div>
+        `;
+
+        // Wire thumbs
+        root.querySelectorAll('.thumbs button').forEach(b => {
+          b.addEventListener('click', () => {
+            activeImg = +b.dataset.i;
+            render();
+          });
+        });
+
+        // Wire qty
+        document.getElementById('q-minus').onclick = () => {
+          qty = Math.max(1, qty - 1);
+          document.getElementById('q-val').textContent = qty;
+        };
+        document.getElementById('q-plus').onclick = () => {
+          qty++;
+          document.getElementById('q-val').textContent = qty;
+        };
+
+        // Wire add
+        document.getElementById('add-btn').onclick = () => {
+          Cart.add(p.id, qty);
+          showToast(`✓ ${qty} × ${p.name} agregada al carrito`);
+        };
+      }
+
+      render();
+
+      // Related (4 random others)
+      const others = PRODUCTS.filter(x => x.id !== p.id).sort(() => Math.random() - 0.5).slice(0, 4);
+      document.getElementById('related').innerHTML = others.map(o => `
+        <article class="product-card">
+          <a href="producto.html?id=${o.id}" class="img">
+            ${o.tag ? `<span class="tag">${o.tag}</span>` : ''}
+            <img src="${o.images[0]}" alt="${o.name}" loading="lazy" />
+          </a>
+          <div class="body">
+            <span class="cat">${o.category}</span>
+            <h3>${o.name}</h3>
+            <div class="price">${fmtMXN(o.price)}</div>
+            <div class="actions">
+              <a href="producto.html?id=${o.id}" class="btn btn-ghost">Ver</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+  </script>
+</body>
+</html>
